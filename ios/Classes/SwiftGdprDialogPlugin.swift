@@ -117,12 +117,7 @@ public class SwiftGdprDialogPlugin: NSObject, FlutterPlugin {
                     print("Error on loadForm completionHandler: \(dismissError)")
                     result(false)
                   }
-                  let status = UMPConsentInformation.sharedInstance.consentStatus
-                  if status == .obtained {
-                      result(true)
-                  } else {
-                      result(false)
-                  }
+                  result(UMPConsentInformation.sharedInstance.consentStatus == UMPConsentStatus.obtained)
                 
                 })
           }
