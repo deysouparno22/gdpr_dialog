@@ -121,7 +121,9 @@ public class SwiftGdprDialogPlugin: NSObject, FlutterPlugin {
                 
                 })
           }
-          
+          else {
+             result(true)
+          }
         }
       })
   }
