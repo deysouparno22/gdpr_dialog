@@ -157,8 +157,9 @@ public class GdprDialogPlugin implements FlutterPlugin, ActivityAware, MethodCal
             // You are now ready to check if a form is available.
             if (consentInformation.isConsentFormAvailable()) {
               loadForm(consentInformation);
+
             } else {
-              returnResult(false);
+              returnResult(true);
             }
           }
         }, new ConsentInformation.OnConsentInfoUpdateFailureListener() {
@@ -177,13 +178,12 @@ public class GdprDialogPlugin implements FlutterPlugin, ActivityAware, MethodCal
           consentForm.show(activity, new ConsentForm.OnConsentFormDismissedListener() {
             @Override
             public void onConsentFormDismissed(@Nullable FormError formError) {
-              // Handle dismissal by reloading form.
-              ConsentInformation consentInformation = UserMessagingPlatform.getConsentInformation(activity.getBaseContext());
-              int consentStatus = consentInformation.getConsentStatus();
-              returnResult(consentStatus == ConsentStatus.OBTAINED);
+              returnResult(true);
               loadForm(consentInformation);
             }
           });
+        } else {
+          returnResult(true);
         }
       }
     }, new UserMessagingPlatform.OnConsentFormLoadFailureListener() {
